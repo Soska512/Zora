@@ -1,0 +1,3 @@
+2023-07-24 19:45:35.273 | INFO     | __main__:main:83 - Started work with wallet: 0x7b2dcdda6D41C678C4fa48bcA42CA037D7CDBD32
+2023-07-24 19:45:36.549 | SUCCESS  | __main__:main:86 - None
+2023-07-24 19:45:36.550 | INFO     | __main__:main:89 - Ended work with wallet: 0x7b2dcdda6D41C678C4fa48bcA42CA037D7CDBD32
