@@ -68,7 +68,7 @@ def mint(account):
         txn.update({'gas': gasLimit})
         signed_txn = account.sign_transaction(txn)
         txn_hash = web3.eth.send_raw_transaction(signed_txn.rawTransaction)
-        b = web3.eth.wait_for_transaction_receipt(txn_hash)
+        b = web3.eth.wait_for_transaction_receipt(txn_hash)['transactionHash']
         return b
     except Exception as e:
         print(f"Error: {e}")

@@ -10,7 +10,7 @@ with open('settings.json', 'r', encoding='utf-8-sig') as file:
 value_from = float(file_list['BridgeConfig']['amount_from'])
 value_to = float(file_list['BridgeConfig']['amount_to'])
 
-value = w3.to_wei(random.uniform(value_from, value_to), 'ether')
+value = w3.to_wei(round(random.uniform(value_from, value_to), 4), 'ether')
 
 eth_w3 = Web3(Web3.HTTPProvider("https://eth.llamarpc.com"))
 contract_address_eth = "0x1a0ad011913A150f69f6A19DF447A0CfD9551054"
@@ -29,14 +29,13 @@ def bridge(account):
     ).build_transaction({
         'from':address,
         'value': value,
-        'nonce': nonce
+        'nonce': nonce,
+        'gas': 100000
     })
 
     swap_txn.update({'maxFeePerGas': eth_w3.eth.fee_history(eth_w3.eth.get_block_number(), 'latest')['baseFeePerGas'][-1] + eth_w3.eth.max_priority_fee})
     swap_txn.update({'maxPriorityFeePerGas': eth_w3.eth.max_priority_fee})
 
-    gasLimit = eth_w3.eth.estimate_gas(swap_txn)
-    swap_txn.update({'gas': gasLimit})
 
     signed_swap_txn = eth_w3.eth.account.sign_transaction(swap_txn, account.key)
     swap_txn_hash = eth_w3.eth.send_raw_transaction(signed_swap_txn.rawTransaction)
